@@ -5,21 +5,14 @@
     vnstat_config_options: '{{ vnstat_config_options|combine(vnstat_group_config_options,vnstat_host_config_options) | default({}) }}'
 
 - name: Install vnStat
-  apt:
-    name: '{{ item }}'
-    state: 'latest'
-    install_recommends: False
-  with_items: '{{ vnstat_packages }}'
+  package: name=vnstat state=present
 
-- name: Divert original /etc/vnstat.conf
-  command: dpkg-divert --quiet --local --divert /etc/vnstat.conf.dpkg-divert --rename /etc/vnstat.conf
-  args:
-    creates: '/etc/vnstat.conf.dpkg-divert'
-
-- name: Provide original /etc/vnstat.conf
-  command: cp /etc/vnstat.conf.dpkg-divert /etc/vnstat.conf
-  args:
-    creates: '/etc/vnstat.conf'
+- name: create vnstat database directory
+  file:
+    path: '{{ vnstat_db_path }}'
+    owner: '{{ vnstat_user }}'
+    group: '{{ vnstat_group }}'
+    state: directory
 
 - name: Configure vnStat number options
   lineinfile:
@@ -28,7 +21,7 @@
     line: '{{ item.key }} {{ item.value }}'
   when: item.value is number
   with_dict: '{{ vnstat_config_options }}'
-  notify: [ 'Reload vnstat' ]
+  notify: [ 'Restart vnstat' ]
 
 - name: Configure vnStat string options
   lineinfile:
@@ -37,13 +30,13 @@
     line: '{{ item.key }} "{{ item.value }}"'
   when: item.value is string
   with_dict: '{{ vnstat_config_options }}'
-  notify: [ 'Reload vnstat' ]
+  notify: [ 'Restart vnstat' ]
 
 - name: Initiate vnstat interfaces databases
   command: vnstat --update --iface '{{ item | quote }}'
   args:
-    creates: '/var/lib/vnstat/{{ item }}'
-  become: '{{ vnstat_user }}'
+    creates: '{{ vnstat_db_path }}/{{ item }}'
+  become_user: '{{ vnstat_user }}'
   with_flattened:
     - '{{ vnstat_interfaces }}'
     - '{{ vnstat_group_interfaces }}'

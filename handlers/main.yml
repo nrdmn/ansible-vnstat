@@ -1,6 +1,6 @@
 ---
 
-- name: Reload vnstat
+- name: Restart vnstat
   service:
     name: 'vnstat'
-    state: 'reloaded'
+    state: 'restarted'

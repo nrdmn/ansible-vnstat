@@ -16,7 +16,7 @@
 
 - name: Configure vnStat number options
   lineinfile:
-    dest: '/etc/vnstat.conf'
+    dest: '{{ vnstat_config_file }}'
     regexp: '^{{ item.key }}'
     line: '{{ item.key }} {{ item.value }}'
   when: item.value is number
@@ -25,7 +25,7 @@
 
 - name: Configure vnStat string options
   lineinfile:
-    dest: '/etc/vnstat.conf'
+    dest: '{{ vnstat_config_file }}'
     regexp: '^{{ item.key }}'
     line: '{{ item.key }} "{{ item.value }}"'
   when: item.value is string

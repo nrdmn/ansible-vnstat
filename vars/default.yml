@@ -1,0 +1,56 @@
+---
+
+vnstat_default_config_options:
+  Interface: 'eth0'
+  DatabaseDir: '{% if ansible_os_family == "Debian" %}/var/lib/vnstat{% elif ansible_os_family == "FreeBSD" %}/var/db/vnstat{% endif %}'
+  Locale: '-'
+  MonthRotate: 1
+  DayFormat: '%x'
+  MonthFormat: "%b '%y"
+  TopFormat: '%x'
+  RXCharacter: '%'
+  TXCharacter: ':'
+  RXHourCharacter: 'r'
+  TXHourCharacter: 't'
+  UnitMode: 0
+  RateUnitMode: 1
+  OutputStyle: 3
+  RateUnit: 1
+  BandwidthDetection: 1
+  MaxBandwidth: 0
+  Sampletime: 5
+  QueryMode: 0
+  CheckDiskSpace: 1
+  UseFileLocking: 1
+  BootVariation: 15
+  TrafficlessDays: 1
+  DaemonUser: ''
+  DaemonGroup: ''
+  UpdateInterval: 30
+  PollInterval: 5
+  SaveInterval: 5
+  OfflineSaveInterval: 30
+  BandwidthDetectionInterval: 5
+  SaveOnStatusChange: 1
+  UseLogging: 2
+  CreateDirs: 1
+  UpdateFileOwner: 1
+  LogFile: '/var/log/vnstat/vnstatd.log'
+  PidFile: '/run/vnstat/vnstatd/vnstatd.pid'
+  HeaderFormat: '%x %H:%M'
+  HourlyRate: 1
+  SummaryRate: 1
+  SummaryLayout: 1
+  TransparentBg: 0
+  CBackground: 'FFFFFF'
+  CEdge: 'AEAEAE'
+  CHeader: '606060'
+  CHeaderTitle: 'FFFFFF'
+  CHeaderDate: 'FFFFFF'
+  CText: '000000'
+  CLine: 'B0B0B0'
+  CLineL: '-'
+  CRx: '92CF00'
+  CTx: '606060'
+  CRxD: '-'
+  CTxD: '-'

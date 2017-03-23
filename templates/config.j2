@@ -1,0 +1,6 @@
+# managed by ansible
+
+{% for key, value in vnstat_config_options.iteritems() %}
+{{ key }} {% if value is string %}"{{ value }}"{% else %}{{ value }}{% endif %}
+
+{% endfor %}

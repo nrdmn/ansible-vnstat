@@ -1,4 +1,4 @@
-# managed by ansible
+# {{ ansible_managed }}
 
 {% for key, value in vnstat_config_options.iteritems() %}
 {{ key }} {% if value is string %}"{{ value }}"{% else %}{{ value }}{% endif %}

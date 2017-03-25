@@ -7,6 +7,10 @@ Configure the network traffic monitor vnstat
 This role requires at least Ansible `v2.1.4`. To install it, run:
 
 ```Shell
+ansible-galaxy install nrdmn.vnstat
+```
+or
+```Shell
 git clone https://github.com/nrdmn/ansible-vnstat.git nrdmn.vnstat
 ```
 or
